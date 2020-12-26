@@ -22,12 +22,12 @@ const User = sequelize.define(
     datecreate: {
       type: DataTypes.DATE,
       allowNull: false,
-      defaultValue: "CURRENT_TIMESTAMP",
+      defaultValue: new Date(),
     },
     dateupdate: {
       type: DataTypes.DATE,
       allowNull: false,
-      defaultValue: "CURRENT_TIMESTAMP",
+      defaultValue: new Date(),
     },
   },
   {
