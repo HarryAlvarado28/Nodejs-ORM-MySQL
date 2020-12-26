@@ -56,9 +56,8 @@ app.get("/dbstatus", async (req, res) => {
   }
 });
 
-controllerUser = require("./controllers/user.controller");
-
-app.use(controllerUser);
+const routeUser = require("./routes/user.route");
+app.use(routeUser);
 
 let port = process.env.PORT;
 

@@ -1,8 +1,7 @@
-const express = require("express");
-const app = express();
 const User = require("./../models/user.model");
+const controllerUser = {};
 
-app.get("/user", async (req, res) => {
+controllerUser.lists = async (req, res) => {
   try {
     await User.findAll().then((r) => {
       console.log(
@@ -22,9 +21,9 @@ app.get("/user", async (req, res) => {
       info: err,
     });
   }
-});
+};
 
-app.get("/user/:id", async (req, res) => {
+controllerUser.one = async (req, res) => {
   let id = req.params.id;
   try {
     await User.findAll({ where: { id } }).then((r) => {
@@ -45,9 +44,18 @@ app.get("/user/:id", async (req, res) => {
       info: err,
     });
   }
-});
+};
 
-app.post("/user", async (req, res) => {
+// app.post(
+//   "/user",
+//   body("email").isEmail().withMessage("Es requerido el correo"),
+//   body("psw").isLength({ min: 7 }).withMessage("Ncesitas una Password"),
+controllerUser.create = async (req, res) => {
+  // validationResult(req);
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
   try {
     let u = await User.create({
       email: req.body.email,
@@ -67,9 +75,10 @@ app.post("/user", async (req, res) => {
       info: err,
     });
   }
-});
+};
+// );
 
-app.put("/user/:id", async (req, res) => {
+controllerUser.update = async (req, res) => {
   let id = req.params.id;
   try {
     let u = await User.update(
@@ -94,9 +103,9 @@ app.put("/user/:id", async (req, res) => {
       info: err,
     });
   }
-});
+};
 
-app.delete("/user/:id", async (req, res) => {
+controllerUser.delete = async (req, res) => {
   let id = req.params.id;
   try {
     let u = await User.destroy({ where: { id } });
@@ -114,6 +123,6 @@ app.delete("/user/:id", async (req, res) => {
       info: err,
     });
   }
-});
+};
 
-module.exports = app;
+module.exports = controllerUser;

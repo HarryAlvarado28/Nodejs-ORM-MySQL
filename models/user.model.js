@@ -1,5 +1,4 @@
-const { Sequelize, DataTypes } = require("sequelize");
-// const sequelize = new Sequelize("mysql::memory:");
+const { DataTypes } = require("sequelize");
 const { sequelize } = require("./../config/database");
 const User = sequelize.define(
   "tuser",
